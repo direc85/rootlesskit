@@ -12,20 +12,17 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
-
 
 Name:           rootlesskit
 Version:        2.3.1
-Release:        0
+Release:        1
 Summary:        Linux-native fakeroot using user namespaces
 License:        Apache-2.0
 URL:            https://github.com/rootless-containers/rootlesskit
 Source:         %{name}-%{version}.tar.gz
 Source1:        vendor.tar.gz
-BuildRequires:  golang(API) >= 1.21
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+#BuildRequires:  golang(API) >= 1.21
+BuildRequires:  golang(API) >= 1.23
 
 %description
 RootlessKit is a Linux-native implementation of "fake root"
@@ -34,7 +31,7 @@ Kubernetes as an unprivileged user (known as "Rootless mode"), so as to protect
 the real root on the host from potential container-breakout attacks.
 
 %prep
-%setup -qa1
+%autosetup -a1 -n %{name}-%{version}/%{name}
 
 %build
 go build -mod=vendor -buildmode=pie -o _output/rootlesskit ./cmd/rootlesskit
